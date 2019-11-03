@@ -132,12 +132,16 @@ def rock_paper_scissors(user):
     time.sleep(.2)
     return user
 
-
 def main():
     if Main_user.money <= 0:
-        print("hey fuckface, youre broke, but thanks for playing!!!")
-        time.sleep(5)
-        sys.exit()
+        print("hey fuckface, youre broke!!! Time to go bankrupt!")
+        Main_user.bankrupt_count += 1
+        if Main_user.bankrupt_count > 5:
+            print("Hey, you have gone bankrupt like way too much, you are getting kicked off the planet, have fun in hell!")
+            time.sleep(5)
+            sys.exit()
+        else:
+            bankruptcy(Main_user)
     choice = input("Would you like to play (r)ock paper scissors, (v)iew balance, go to (c)ollege, or e(x)it? ")
     if choice == "r":
         rock_paper_scissors(Main_user)
@@ -153,7 +157,43 @@ def main():
         "Youre a fucking idiot, try again"
     main()
 
-
+def bankruptcy(user):
+    print("Hey you kinda fucked yourself eh?")
+    time.sleep(1)
+    print("Well now you're going to have to answer a couple questions correctly in order to get some money back.")
+    time.sleep(1)
+    if user.bankrupt_count == 1:
+        f = input("First thing you need to answer:\nWhat is Netwon's first law of motion?\n(A)An object in motion will remain in motion.\n(B) "
+              "The acceleration of an object as produced by a net force is directly proportional to the magnitude of the net force, in the same direction as the net force, "
+              "and inversely proportional to the mass of the object.\n(C) For every action, there is an equal and opposite reaction.\n")
+        if f == "A":
+            print("Congrats, youre not a fucktard, here is $10 because I feel bad for you.")
+            user.add_money(10)
+        else:
+            print("You are a fucking bitch, go commit toaster bath. BYE")
+            time.sleep(3)
+            sys.exit()
+    elif user.bankrupt_count == 2:
+        f = input("Next one: Who is the best president to ever live? (A)Donald Trump\n(B)Barack Obama\n(C)Richard Nixon")
+        if f == "A":
+            print("Congrats, you are not a libtard, here's $100")
+            user.add_money(100)
+        else:
+            print("Youre a lib cuck")
+            time.sleep(3)
+            sys.exit()
+    else:
+        f = input("QUESTION: What does NNN stand for? (Type it out)")
+        f = f.strip()
+        f = f.lower()
+        if f == "no nut november":
+            print("ay, you're not a total bitch, here's $50")
+            user.add_money(50)
+        else:
+            print("wao, youre a cuck")
+            time.sleep(2)
+            sys.exit()
+            
 def college(user):
     if user.education == "High school diploma":
         print("It costs $50 to get an associate's degree.")
@@ -226,6 +266,8 @@ def college(user):
 
 
 Main_user = create_user()
+Main_user.bankrupt_count = 0
+
 define_starting_money(Main_user)
 create_password_for_user(Main_user)
 
